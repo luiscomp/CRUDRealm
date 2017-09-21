@@ -1,17 +1,13 @@
 package com.example.admed.crudrealm.vo;
 
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.Required;
 
 /**
  * Created by Luis Eduardo on 16/09/2017.
  */
 
-class ProfessorVO extends RealmObject {
-    @PrimaryKey
+public class ProfessorVO extends RealmObject {
     private long id;
-    @Required
     private String nome;
 
     public ProfessorVO() {

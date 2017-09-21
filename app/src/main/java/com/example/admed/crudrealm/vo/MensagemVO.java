@@ -1,20 +1,13 @@
 package com.example.admed.crudrealm.vo;
 
-import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.Required;
-
 /**
  * Created by Luis Eduardo on 16/09/2017.
  */
 
 public class MensagemVO {
-    @PrimaryKey
     private long id;
-    @Required
     private String texto;
-    @Required
     private long idAluno;
-    @Required
     private long idProfessor;
 
     public MensagemVO() {

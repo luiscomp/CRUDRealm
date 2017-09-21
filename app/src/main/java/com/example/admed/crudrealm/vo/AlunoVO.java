@@ -1,8 +1,8 @@
 package com.example.admed.crudrealm.vo;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.Required;
 
 /**
  * Created by Luis Eduardo on 16/09/2017.
@@ -11,10 +11,20 @@ import io.realm.annotations.Required;
 public class AlunoVO extends RealmObject {
     @PrimaryKey
     private long id;
-    @Required
     private String nome;
 
     public AlunoVO() {
+    }
+
+    public static Long autoIncrementId(){
+        Long key = 1L;
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            key = realm.where(AlunoVO.class).max("id").longValue() + 1;
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return key;
     }
 
     public long getId() {
