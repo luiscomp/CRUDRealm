@@ -2,4 +2,6 @@
     <string name="app_name">CRUDRealm</string>
     <string name="title_activity_crud_alunos">Alunos</string>
     <string name="aluno_text">Aluno</string>
+    <string name="professor_text">Professor</string>
+    <string name="title_activity_crud_professores">Professores</string>
 </resources>

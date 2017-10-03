@@ -29,6 +29,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.admed.crudrealm.activities.MainActivity" />
         </activity>
+        <activity
+            android:name=".activities.CrudProfessoresActivity"
+            android:label="@string/title_activity_crud_professores"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.admed.crudrealm.activities.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

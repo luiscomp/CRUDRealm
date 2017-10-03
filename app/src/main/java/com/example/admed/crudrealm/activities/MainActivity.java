@@ -23,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     @OnClick(R.id.btnProfessores) protected void abrirCrudProfessores() {
-
+        Intent intent = new Intent(MainActivity.this, CrudProfessoresActivity.class);
+        startActivity(intent);
     }
+
     @OnClick(R.id.btnCursos) protected void abrirCridCursos() {
 
     }
