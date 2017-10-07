@@ -20,7 +20,7 @@ public class ProfessorVO extends RealmObject {
         Long key = 1L;
         Realm realm = Realm.getDefaultInstance();
         try {
-            key = realm.where(AlunoVO.class).max("id").longValue() + 1;
+            key = realm.where(ProfessorVO.class).max("id").longValue() + 1;
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
