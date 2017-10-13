@@ -65,13 +65,9 @@ public class ProfessoresRecycleViewAdapter extends RecyclerView.Adapter<Professo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-
                 DialogProfessor dialog = DialogProfessor.newInstance(lista.findAll().get(position), new DialogProfessor.OnListener() {
                     @Override
                     public void aoConcluir(ProfessorVO professor) {
-                        realm.commitTransaction();
                         notifyItemChanged(position);
                     }
                 });

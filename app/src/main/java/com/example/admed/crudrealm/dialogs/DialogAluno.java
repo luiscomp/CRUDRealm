@@ -15,6 +15,7 @@ import com.example.admed.crudrealm.vo.AlunoVO;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 /**
  * Created by Luis Eduardo on 20/09/2017.
@@ -26,11 +27,21 @@ public class DialogAluno extends DialogFragment {
 
     @OnClick(R.id.btnConcluir) protected void concluir() {
         if(dadosValidos()) {
+            Realm realm = null;
+
             if(aluno == null) {
                 aluno = new AlunoVO();
                 aluno.setId(AlunoVO.autoIncrementId());
+            } else {
+                realm  = Realm.getDefaultInstance();
+                realm.beginTransaction();
             }
+
             aluno.setNome(edtNome.getText().toString());
+
+            if(realm != null) {
+                realm.commitTransaction();
+            }
 
             listener.aoConcluir(aluno);
             dismiss();
@@ -89,6 +100,11 @@ public class DialogAluno extends DialogFragment {
         ButterKnife.bind(this, rootView);
 
         builder.setView(rootView);
+
+        if(aluno != null) {
+            edtNome.setText(aluno.getNome());
+        }
+
         return builder.create();
     }
 }

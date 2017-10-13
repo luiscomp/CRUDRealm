@@ -15,6 +15,7 @@ import com.example.admed.crudrealm.vo.ProfessorVO;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 /**
  * Created by Usuario on 29/09/2017.
@@ -26,11 +27,21 @@ public class DialogProfessor extends DialogFragment {
 
     @OnClick(R.id.btnConcluir) protected void concluir() {
         if(dadosValidos()) {
+            Realm realm = null;
+
             if(professor == null) {
                 professor = new ProfessorVO();
                 professor.setId(ProfessorVO.autoIncrementId());
+            } else {
+                realm  = Realm.getDefaultInstance();
+                realm.beginTransaction();
             }
+
             professor.setNome(edtNome.getText().toString());
+
+            if(realm != null) {
+                realm.commitTransaction();
+            }
 
             listener.aoConcluir(professor);
             dismiss();
@@ -89,6 +100,11 @@ public class DialogProfessor extends DialogFragment {
         ButterKnife.bind(this, rootView);
 
         builder.setView(rootView);
+
+        if(professor != null) {
+            edtNome.setText(professor.getNome());
+        }
+
         return builder.create();
     }
 }

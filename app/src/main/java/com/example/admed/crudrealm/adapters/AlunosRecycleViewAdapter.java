@@ -54,6 +54,7 @@ public class AlunosRecycleViewAdapter extends RecyclerView.Adapter<AlunosRecycle
                     @Override
                     public void execute(Realm realm) {
                         lista.findAll().deleteFromRealm(position);
+
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, lista.findAll().size());
                     }
@@ -64,13 +65,10 @@ public class AlunosRecycleViewAdapter extends RecyclerView.Adapter<AlunosRecycle
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
 
                 DialogAluno dialog = DialogAluno.newInstance(lista.findAll().get(position), new DialogAluno.OnListener() {
                     @Override
                     public void aoConcluir(AlunoVO aluno) {
-                        realm.commitTransaction();
                         notifyItemChanged(position);
                     }
                 });
