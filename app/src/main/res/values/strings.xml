@@ -4,4 +4,6 @@
     <string name="aluno_text">Aluno</string>
     <string name="professor_text">Professor</string>
     <string name="title_activity_crud_professores">Professores</string>
+    <string name="title_activity_crud_cursos">CrudCursosActivity</string>
+    <string name="curso_text">Curso</string>
 </resources>
