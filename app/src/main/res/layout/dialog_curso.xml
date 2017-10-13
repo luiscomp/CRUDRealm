@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
 
     <android.support.design.widget.AppBarLayout
@@ -33,22 +34,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="200dp"
+        android:layout_margin="@dimen/default_margin"
+        android:layout_weight="0.25"
         android:orientation="vertical"
-        android:layout_margin="@dimen/default_margin">
+        android:weightSum="1">
 
         <EditText
             android:id="@+id/edtNomeCurso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome"/>
+            android:hint="Nome" />
 
-        <EditText
-            android:id="@+id/edtNomeProfessor"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:hint="Nome do professor" />
+            android:text="Selecione o Professor:" />
+
+        <Spinner
+            android:id="@+id/spn_professor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.18" />
 
     </LinearLayout>
 

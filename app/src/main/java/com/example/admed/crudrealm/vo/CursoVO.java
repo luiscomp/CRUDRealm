@@ -2,6 +2,7 @@ package com.example.admed.crudrealm.vo;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -11,15 +12,15 @@ import io.realm.annotations.PrimaryKey;
 public class CursoVO extends RealmObject {
     @PrimaryKey
     private long id;
-    private long id_professor;
+    private ProfessorVO professorVO;
     private String nome;
 
     public CursoVO() {
     }
 
-    public CursoVO(long id, long id_professor, String nome){
+    public CursoVO(long id, ProfessorVO professorVO, String nome){
         this.id = id;
-        this.id_professor = id_professor;
+        this.professorVO = professorVO;
         this.nome = nome;
     }
 
@@ -43,11 +44,11 @@ public class CursoVO extends RealmObject {
     }
 
     public long getId_professor() {
-        return id_professor;
+        return professorVO.getId();
     }
 
     public void setId_professor(long id_professor) {
-        this.id_professor = id_professor;
+        professorVO.setId(id_professor);
     }
 
     public String getNome() {
