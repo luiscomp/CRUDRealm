@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admed.crudrealm.R;
+import com.example.admed.crudrealm.activities.MainActivity;
 import com.example.admed.crudrealm.dialogs.DialogCurso;
 import com.example.admed.crudrealm.vo.CursoVO;
 
@@ -48,42 +50,36 @@ public class CursosRecycleViewAdapter extends RecyclerView.Adapter<CursosRecycle
     public void onBindViewHolder(CursosRecycleViewAdapter.ViewHolder holder, final int position) {
         holder.tv_nome_curso.setText(lista.findAll().get(position).getNome());
 
-        //Pegar ID do Professor
+        holder.tv_id_curso.setText(Long.toString(lista.findAll().get(position).getId()));
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Realm realm = Realm.getDefaultInstance();
-
-                if(!realm.isInTransaction()){
-                    realm.beginTransaction();
-                }
-
-                lista.findAll().deleteFromRealm(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, lista.findAll().size());
-
+                Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        lista.findAll().deleteFromRealm(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, lista.findAll().size());
+                    }
+                });
             }
         });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Realm realm = Realm.getDefaultInstance();
-
-                if(!realm.isInTransaction()){
-                    realm.beginTransaction();
-                }
 
                 DialogCurso dialog = DialogCurso.newInstance(lista.findAll().get(position), new DialogCurso.OnListener() {
                     @Override
                     public void aoConcluir(CursoVO curso) {
-                        realm.commitTransaction();
                         notifyItemChanged(position);
+
                     }
                 });
                 dialog.show(fragmentManager, "cursoDialog");
             }
+
         });
     }
 

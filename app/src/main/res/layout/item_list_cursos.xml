@@ -15,7 +15,7 @@
         android:id="@+id/tv_id_curso"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:gravity="center"
         android:text="TextView"
         android:textSize="18sp" />
@@ -25,7 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_weight="10"
-        android:gravity="center"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
         android:text="TextView"
         android:textSize="18sp" />
 
