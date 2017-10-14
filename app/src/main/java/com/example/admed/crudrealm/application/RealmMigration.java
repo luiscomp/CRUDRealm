@@ -9,7 +9,7 @@ import io.realm.RealmSchema;
 
 public class RealmMigration implements io.realm.RealmMigration {
 
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
 
     @Override
     public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
@@ -20,6 +20,13 @@ public class RealmMigration implements io.realm.RealmMigration {
 
             schema.get("CursoVO")
                     .addRealmObjectField("professorVO", schema.get("ProfessorVO"));
+            oldVersion++;
+        }
+
+        if (oldVersion == 1) {
+
+            schema.get("CursoVO")
+                    .addRealmListField("alunos", schema.get("AlunoVO"));
             oldVersion++;
         }
     }

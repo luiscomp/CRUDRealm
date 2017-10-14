@@ -1,6 +1,9 @@
 package com.example.admed.crudrealm.vo;
 
+import java.util.List;
+
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
@@ -14,14 +17,16 @@ public class CursoVO extends RealmObject {
     private long id;
     private ProfessorVO professorVO;
     private String nome;
+    private RealmList<AlunoVO> alunos;
 
     public CursoVO() {
     }
 
-    public CursoVO(long id, ProfessorVO professorVO, String nome){
+    public CursoVO(long id, ProfessorVO professorVO, String nome, RealmList<AlunoVO> alunos){
         this.id = id;
         this.professorVO = professorVO;
         this.nome = nome;
+        this.alunos = alunos;
     }
 
     public static Long autoIncrementId(){
@@ -43,14 +48,6 @@ public class CursoVO extends RealmObject {
         this.id = id;
     }
 
-    public long getId_professor() {
-        return professorVO.getId();
-    }
-
-    public void setId_professor(long id_professor) {
-        professorVO.setId(id_professor);
-    }
-
     public ProfessorVO getProfessorVO() {
         return professorVO;
     }
@@ -65,5 +62,13 @@ public class CursoVO extends RealmObject {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public RealmList<AlunoVO> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(RealmList<AlunoVO> alunos) {
+        this.alunos = alunos;
     }
 }
