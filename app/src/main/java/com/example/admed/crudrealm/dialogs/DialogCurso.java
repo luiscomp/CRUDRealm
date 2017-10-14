@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,49 +18,39 @@ import com.example.admed.crudrealm.vo.ProfessorVO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
 import butterknife.OnItemSelected;
 import io.realm.Realm;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
-
-import static android.widget.Toast.*;
 
 /**
  * Created by Gabriel Ângelo on 07/10/2017.
  */
 
 public class DialogCurso extends DialogFragment {
+    private CursoVO curso;
+    private List<String> listaProfessores;
+    private ProfessorVO professorSelecionado;
 
     @BindView(R.id.edtNomeCurso) protected EditText edtNomeCurso;
-
-    private CursoVO curso;
-
     @BindView(R.id.spn_professor) protected Spinner spn_professor;
 
-   /*@OnItemSelected(R.id.spn_professor) protected void selecionarProfessor(){
+    @OnItemSelected(R.id.spn_professor) protected void ItemSelected(View view, int position){
+        String NomeSpinner = spn_professor.getSelectedItem().toString();
+
+        long idProfessor = Long.parseLong(indiceSpinner(NomeSpinner));
 
         Realm realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        RealmResults<ProfessorVO> query = realm.where(ProfessorVO.class).findAll();
-
-        List<String> labels = new ArrayList<>();
-        for (ProfessorVO professor : query){
-            labels.add(professor.getNome());
-        }
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, labels);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
-        spn_professor.setAdapter(dataAdapter);
-    }*/
+        RealmQuery<ProfessorVO> query = realm.where(ProfessorVO.class);
+        query.equalTo("id", idProfessor);
+        RealmResults<ProfessorVO> result = query.findAll();
+        professorSelecionado = result.first();
+    }
 
     @OnClick(R.id.btnConcluir_dialogCurso) protected void concluir() {
         if(dadosValidos()) {
@@ -75,8 +64,7 @@ public class DialogCurso extends DialogFragment {
                 realm.beginTransaction();
             }
             curso.setNome(edtNomeCurso.getText().toString());
-
-            //curso.setId_professor(Long.parseLong(edtNomeProfessor.getText().toString()));
+            curso.setProfessorVO(professorSelecionado);
 
             if(realm != null) {
                 realm.commitTransaction();
@@ -94,10 +82,17 @@ public class DialogCurso extends DialogFragment {
     private boolean dadosValidos() {
         boolean dadosInvalidos = false;
 
-        if(edtNomeCurso.getText().length() == 0){ // || edtNomeProfessor.getText().length() == 0) {
+        if(edtNomeCurso.getText().length() == 0){
             edtNomeCurso.setError("Preencha todos os campos");
             dadosInvalidos = true;
         }
+
+        if(listaProfessores.size() == 0){
+            Toast t = Toast.makeText(getContext(), "Cadastre um professor antes!", Toast.LENGTH_SHORT);
+            t.show();
+            dadosInvalidos = true;
+        }
+
         return !dadosInvalidos;
     }
 
@@ -139,28 +134,31 @@ public class DialogCurso extends DialogFragment {
 
         builder.setView(rootView);
 
-        if(curso != null) {
-            edtNomeCurso.setText(curso.getNome());
-
-        }
-
         Realm realm = Realm.getDefaultInstance();
         RealmResults<ProfessorVO> query = realm.where(ProfessorVO.class).findAll();
 
         List<String> labels = new ArrayList<>();
         for (ProfessorVO professor : query){
-            labels.add(professor.getNome());
+            labels.add(Long.toString(professor.getId()) + ": " + professor.getNome());
         }
 
-        // Creating adapter for spinner
+        listaProfessores = labels;
+
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, labels);
-
-        // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
         spn_professor.setAdapter(dataAdapter);
+
+        if(curso != null) {
+            edtNomeCurso.setText(curso.getNome());
+            spn_professor.setSelection(dataAdapter.getPosition(curso.getProfessorVO().getId() + ": " + curso.getProfessorVO().getNome()));
+        }
 
         return builder.create();
     }
+
+    public String indiceSpinner(String st){
+        StringTokenizer string = new StringTokenizer(st);
+        return string.nextToken(":");
+    }
 }
+

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,7 +93,7 @@ public class CursosRecycleViewAdapter extends RecyclerView.Adapter<CursosRecycle
 
         @BindView(R.id.tv_nome_curso) protected TextView tv_nome_curso;
         @BindView(R.id.tv_id_curso) protected TextView tv_id_curso;
-        @BindView(R.id.btnDelete) protected ImageButton btnDelete;
+        @BindView(R.id.btnDelete) protected ImageView btnDelete;
 
         public ViewHolder(View itemView) {
             super(itemView);

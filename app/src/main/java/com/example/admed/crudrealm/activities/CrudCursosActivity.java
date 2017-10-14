@@ -46,9 +46,7 @@ public class CrudCursosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crud_cursos);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_cursos);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -58,9 +56,7 @@ public class CrudCursosActivity extends AppCompatActivity {
 
     private void instanciarLista() {
         rvCursos.setHasFixedSize(true);
-
         rvCursos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
         rvCursos.setAdapter(new CursosRecycleViewAdapter(null, getSupportFragmentManager()));
         ((CursosRecycleViewAdapter) rvCursos.getAdapter()).atualizarLista();
     }

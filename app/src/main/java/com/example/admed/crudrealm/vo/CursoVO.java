@@ -51,6 +51,14 @@ public class CursoVO extends RealmObject {
         professorVO.setId(id_professor);
     }
 
+    public ProfessorVO getProfessorVO() {
+        return professorVO;
+    }
+
+    public void setProfessorVO(ProfessorVO professorVO) {
+        this.professorVO = professorVO;
+    }
+
     public String getNome() {
         return nome;
     }
