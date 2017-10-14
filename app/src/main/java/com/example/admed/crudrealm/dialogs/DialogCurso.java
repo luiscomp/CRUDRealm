@@ -42,7 +42,7 @@ public class DialogCurso extends DialogFragment {
 
     @BindView(R.id.spn_professor) protected Spinner spn_professor;
 
-    @OnItemSelected(R.id.spn_professor) protected void selecionarProfessor(){
+   /*@OnItemSelected(R.id.spn_professor) protected void selecionarProfessor(){
 
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -61,7 +61,7 @@ public class DialogCurso extends DialogFragment {
 
         // attaching data adapter to spinner
         spn_professor.setAdapter(dataAdapter);
-    }
+    }*/
 
     @OnClick(R.id.btnConcluir_dialogCurso) protected void concluir() {
         if(dadosValidos()) {
@@ -141,7 +141,25 @@ public class DialogCurso extends DialogFragment {
 
         if(curso != null) {
             edtNomeCurso.setText(curso.getNome());
+
         }
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<ProfessorVO> query = realm.where(ProfessorVO.class).findAll();
+
+        List<String> labels = new ArrayList<>();
+        for (ProfessorVO professor : query){
+            labels.add(professor.getNome());
+        }
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, labels);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spn_professor.setAdapter(dataAdapter);
 
         return builder.create();
     }
