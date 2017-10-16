@@ -78,7 +78,7 @@ public class CursosRecycleViewAdapter extends RecyclerView.Adapter<CursosRecycle
                 Intent i = new Intent(context.getApplicationContext(), DetalhesCursoActivity.class);
                 i.putExtra("nome", lista.findAll().get(position).getNome());
                 i.putExtra("professor", lista.findAll().get(position).getProfessorVO().getNome());
-//                i.putExtra("alunos", (Parcelable) lista.findAll().get(position).getAlunos());
+                //passar também a lista de alunos
                 context.startActivity(i);
             }
 
