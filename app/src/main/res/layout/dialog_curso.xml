@@ -34,7 +34,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="150dp"
         android:layout_margin="@dimen/default_margin"
         android:layout_weight="0.25"
         android:orientation="vertical"
@@ -62,21 +62,6 @@
             android:id="@+id/spn_professor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Alunos Matriculados:" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvAlunosMatriculados"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_marginTop="5dp" />
 
     </LinearLayout>
