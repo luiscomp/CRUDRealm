@@ -23,11 +23,6 @@ public class CRUDRealm extends Application {
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder().name("crudrealm.realm").build();
 
-        /*RealmConfiguration config2 = new RealmConfiguration.Builder()
-                .schemaVersion(RealmMigration.VERSION)
-                .migration(new RealmMigration())
-                .build();*/
-
         Realm.setDefaultConfiguration(config);
     }
 

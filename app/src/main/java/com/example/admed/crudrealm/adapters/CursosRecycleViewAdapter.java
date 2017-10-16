@@ -1,5 +1,8 @@
 package com.example.admed.crudrealm.adapters;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admed.crudrealm.R;
+import com.example.admed.crudrealm.activities.DetalhesCursoActivity;
 import com.example.admed.crudrealm.activities.MainActivity;
 import com.example.admed.crudrealm.dialogs.DialogCurso;
 import com.example.admed.crudrealm.vo.CursoVO;
@@ -28,10 +32,12 @@ public class CursosRecycleViewAdapter extends RecyclerView.Adapter<CursosRecycle
 
     private FragmentManager fragmentManager;
     private RealmQuery<CursoVO> lista;
+    private Context context;
 
-    public CursosRecycleViewAdapter(RealmQuery<CursoVO> lista, FragmentManager fragmentManager) {
+    public CursosRecycleViewAdapter(RealmQuery<CursoVO> lista, FragmentManager fragmentManager, Context context) {
         this.lista = lista;
         this.fragmentManager = fragmentManager;
+        this.context = context;
     }
 
     public void atualizarLista() {
@@ -43,7 +49,6 @@ public class CursosRecycleViewAdapter extends RecyclerView.Adapter<CursosRecycle
     @Override
     public CursosRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_cursos, parent, false);
-
         return new CursosRecycleViewAdapter.ViewHolder(view);
     }
 
@@ -70,7 +75,18 @@ public class CursosRecycleViewAdapter extends RecyclerView.Adapter<CursosRecycle
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i = new Intent(context.getApplicationContext(), DetalhesCursoActivity.class);
+                i.putExtra("nome", lista.findAll().get(position).getNome());
+                i.putExtra("professor", lista.findAll().get(position).getProfessorVO().getNome());
+//                i.putExtra("alunos", (Parcelable) lista.findAll().get(position).getAlunos());
+                context.startActivity(i);
+            }
 
+        });
+
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 DialogCurso dialog = DialogCurso.newInstance(lista.findAll().get(position), new DialogCurso.OnListener() {
                     @Override
                     public void aoConcluir(CursoVO curso) {
@@ -80,7 +96,6 @@ public class CursosRecycleViewAdapter extends RecyclerView.Adapter<CursosRecycle
                 });
                 dialog.show(fragmentManager, "cursoDialog");
             }
-
         });
     }
 
@@ -94,6 +109,7 @@ public class CursosRecycleViewAdapter extends RecyclerView.Adapter<CursosRecycle
         @BindView(R.id.tv_nome_curso) protected TextView tv_nome_curso;
         @BindView(R.id.tv_id_curso) protected TextView tv_id_curso;
         @BindView(R.id.btnDelete) protected ImageView btnDelete;
+        @BindView(R.id.btnEdit) protected  ImageView btnEdit;
 
         public ViewHolder(View itemView) {
             super(itemView);

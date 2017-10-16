@@ -57,7 +57,7 @@ public class CrudCursosActivity extends AppCompatActivity {
     private void instanciarLista() {
         rvCursos.setHasFixedSize(true);
         rvCursos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvCursos.setAdapter(new CursosRecycleViewAdapter(null, getSupportFragmentManager()));
+        rvCursos.setAdapter(new CursosRecycleViewAdapter(null, getSupportFragmentManager(), this));
         ((CursosRecycleViewAdapter) rvCursos.getAdapter()).atualizarLista();
     }
 
